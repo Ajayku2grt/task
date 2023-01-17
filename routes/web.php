@@ -18,5 +18,5 @@ use App\Http\Controllers\StoreController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/',[HomeController::class, 'index']);
+Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::resource('data',StoreController::class);

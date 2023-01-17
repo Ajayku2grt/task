@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\User;
+use Illuminate\Support\Facades\Hash;
 
 class StoreController extends Controller
 {
@@ -34,7 +36,14 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $user = new User;
+        $user->name   = $request->name;
+        $user->email   = $request->email;
+        $user->mobile   = $request->mobile;
+        $user->password   = Hash::make($request->password);
+        $user->save();
+        // return view('list');
+        return redirect()->route('home');
     }
 
     /**
@@ -45,7 +54,8 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $user  = User::find($id);
+        return response()->json(['success'=>true, 'user'=>$user],200);
     }
 
     /**
@@ -79,6 +89,6 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }
